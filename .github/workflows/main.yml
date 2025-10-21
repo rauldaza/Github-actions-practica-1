@@ -24,3 +24,9 @@ jobs:
       run: docker build --platform linux -t ${{ secrets.DOCKERHUB_USER }}/practica_fastpi:latest .
     - name: Publish image
       run: docker push ${{ secrets.DOCKERHUB_USER }}/practica_fastpi:latest
+    - name: Azure WebApp Deploy
+      uses: Azure/webapps-deploy@v2.2.17
+      with:
+        app-name: webapp fastapi
+        publish-profile: ${{ secrets.AZURE_WEBAPP }}
+        images: ${{ secrets.DOCKERHUB_USER }}/practica_fastpi:latest
